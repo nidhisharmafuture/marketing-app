@@ -1,0 +1,11 @@
+{
+    "name": "DesignerModule",
+    "alias": "designermodule",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DesignerModule\\Providers\\DesignerModuleServiceProvider"
+    ],
+    "files": []
+}
