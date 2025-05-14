@@ -18,11 +18,16 @@ class CheckAdminAuth
      public function handle(Request $request, Closure $next): Response
     {
        
-        if (Auth::check()  && auth()->user()->role == '1') {
+        if (Auth::check() && auth()->user()->role == '1') {
             return redirect('/admin/dashboard')->with('error','you can not access login page without logout');           
-        } else {
+        } 
+        
+        
+        else {
             // If not authenticated, redirect to login with a message
             return $next($request);
         }
     }
+
+    
 }

@@ -40,19 +40,57 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-img">
+
+                  @php
+
+                $image = Auth::user()->image;
+                @endphp
+
+                @if($image)
+                <img src="{{ asset('admin/' . $image) }}" id="output" alt="Admin Image" />
+                @else
+
                   <img src="{{ asset('superadmin/assets/images/faces/face1.jpg')}}" alt="image">
+                @endif
+
+
+
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">David Greymaax</p>
+                  <p class="mb-1 text-black">Setting</p>
                 </div>
               </a>
+                     @php
+        $role = Auth::user()->role; 
+    @endphp
+
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
+                 @if ($role == 1)
+                <a class="dropdown-item" href="{{route('admin.profile.page')}}">
+                  <i class="mdi mdi-cached me-2 text-success"></i>Profile</a>
+                  @elseif ($role == 2)
+        <a class="dropdown-item" href="{{ route('designer.profile.page') }}">
+                  <i class="mdi mdi-cached me-2 text-success"></i>Profile</a>
+        </a>
+    @endif 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{route('admin.logout-process')}}">
-                  <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+
+
+          
+
+    @if ($role == 1)
+        <a class="dropdown-item" href="{{ route('admin.logout-process') }}">
+            <i class="mdi mdi-logout me-2 text-primary"></i> Signout
+        </a>
+    @elseif ($role == 2)
+        <a class="dropdown-item" href="{{ route('designer.logout-process') }}">
+            <i class="mdi mdi-logout me-2 text-primary"></i> Signout
+        </a>
+    @endif
+
+
+
               </div>
             </li>
             <li class="nav-item d-none d-lg-block full-screen-link">
@@ -90,7 +128,11 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item preview-item">
                   <div class="preview-thumbnail">
+
+
                     <img src="{{ asset('superadmin/assets/images/faces/face3.jpg')}}" alt="image" class="profile-pic">
+
+                    
                   </div>
                   <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                     <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>

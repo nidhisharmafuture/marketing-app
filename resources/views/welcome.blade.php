@@ -28,49 +28,29 @@
     <link rel="shortcut icon" href="{{ asset('superadmin/assets/images/favicon.png')}}" />
   </head>
   <body>
-    <div class="container-scroller">
-      <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="content-wrapper d-flex align-items-center auth">
-          <div class="row flex-grow">
-            <div class="col-lg-4 mx-auto">
-              <div class="auth-form-light text-left p-5">
-                <div class="brand-logo">
-                  <img src="{{ asset('superadmin/assets/images/logo.svg')}}">
-                </div>
-                <h4>Hello! let's get started</h4>
-                <h6 class="font-weight-light">Sign in to continue.</h6>
-                <form class="pt-3">
-                  <div class="form-group">
-                    <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="mt-3 d-grid gap-2">
-                    <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN IN</a>
-                  </div>
-                  <div class="my-2 d-flex justify-content-between align-items-center">
-                    <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" class="form-check-input"> Keep me signed in </label>
+    <div>
+            <img src="{{asset('superadmin/img/login-page-bg.jpg') }}" alt="img" class="login-image">
+            <div class="login-form-wrapper" style=" border: 1px solid #e5e6e7;max-width: 700px;">
+                <div class="row d-flex">
+                    <div class="login-logo d-flex justify-content-center">
+                        <img src="{{asset('superadmin/img/login-logo.png') }}" alt="logo">
                     </div>
-                    <a href="#" class="auth-link text-primary">Forgot password?</a>
-                  </div>
-                  <div class="mb-2 d-grid gap-2">
-                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                      <i class="mdi mdi-facebook me-2"></i>Connect using facebook </button>
-                  </div>
-                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a>
-                  </div>
-                </form>
-              </div>
+
+                    <div class="row gap-x-2">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <a href="" class="submit-btn">Login As Super Admin</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <a href="{{ route('admin.loginPage') }}" class="submit-btn">Login As Admin</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-        <!-- content-wrapper ends -->
-      </div>
-      <!-- page-body-wrapper ends -->
-    </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="{{ asset('superadmin/assets/vendors/js/vendor.bundle.base.js')}}"></script>

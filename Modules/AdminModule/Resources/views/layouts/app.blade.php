@@ -22,8 +22,12 @@
     <link rel="stylesheet" href="{{ asset('superadmin/assets/css/style.css')}}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{{ asset('superadmin/assets/images/favicon.png')}}" />
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
   </head>
   <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <div class="container-scroller">
           @include('adminmodule::layouts.header')
 
