@@ -6,6 +6,9 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use App\Models\User;
+
 
 class DesignerModuleController extends Controller
 {
@@ -81,4 +84,73 @@ class DesignerModuleController extends Controller
             return redirect()->route('designer.loginPage')->with('error', 'Unauthorized access.');
         }
     }
+
+    public function profilePage()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $id = $user->id;
+            $Admin = User::where('id', $id)->first();
+            return view('adminmodule::common.profilepage', ['admin' => $Admin]);
+        }
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $admin = User::findOrFail($request->adminId);
+        $admin->name = $request->name;
+        $admin->phone = $request->phone;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('admin'), $filename);
+            $admin->image = $filename;
+        }
+
+        $admin->save();
+
+        return response()->json(['success' => true]);
+    }
+
+public function changePassword(Request $request)
+{
+    // Define the validation rules
+$user = auth()->user();
+
+
+
+
+    $validator = Validator::make($request->all(), [
+        'currentpassword' => 'required', // The current password is required
+        'newpassword' => 'required|min:6', // New password is required and must be at least 8 characters
+        'confirmpassword' => 'required|same:newpassword', // Confirm password must match the new password
+    ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return response()->json([
+            'success' => false,
+            'errors' => $validator->errors() // Return validation errors
+        ]);
+    }
+
+    // Check if the current password is correct
+    if (!Hash::check($request->currentpassword, $user->password)) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Current password is incorrect.'
+        ]);
+    }
+
+    // Proceed to update the password
+    
+    $user->password = Hash::make($request->newpassword);
+    $user->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Password updated successfully.'
+    ]);
+}
 }

@@ -214,6 +214,7 @@
         document.getElementById('notmtachError').innerText = 'New password and confirmation password do not match.';
         return;
     }
+    const baseRoute = userRole === 2 ? 'designer' : 'admin';
 
     // Send the request to the server
     fetch(`/${baseRoute}/update-profile`, {

@@ -49,7 +49,10 @@ Route::prefix('designer')->group(function () {
     Route::get("logout/process", [DesignerModuleController::class, 'logout'])->name('designer.logout-process');
     Route::group(['middleware'=>['CheckDesignerLogin']],function(){
     Route::get('/dashboard', [DesignerModuleController::class, 'dashboardPage'])->name('designer.dashboard');
+           Route::get('/profile/page', [DesignerModuleController::class, 'profilePage'])->name('designer.profile.page');
 
+   Route::post('update-profile', [DesignerModuleController::class, 'updateProfile'])->name('designer.profile.update');
+      Route::post('change-password', [DesignerModuleController::class, 'changePassword'])->name('designer.profile.changepassword');
     
     });
 
