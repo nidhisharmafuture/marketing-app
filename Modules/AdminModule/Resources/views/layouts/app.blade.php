@@ -24,6 +24,12 @@
     <link rel="shortcut icon" href="{{ asset('superadmin/assets/images/favicon.png')}}" />
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+  
+    <!-- DataTables Bootstrap 5 CSS -->
+<link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+  
+  
   </head>
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -49,7 +55,7 @@
           <!-- partial:partials/_footer.html -->
             @include('adminmodule::layouts.footer')
 
-         
+         @stack('scripts')
           <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -64,7 +70,21 @@
     <script src="{{ asset('superadmin/assets/vendors/chart.js/chart.umd.js')}}"></script>
     <script src="{{ asset('superadmin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
     <!-- End plugin js for this page -->
+    
+    <!-- DataTables core -->
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Bootstrap 5 integration -->
+<script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap5.min.js"></script>
+
+    
+    
     <!-- inject:js -->
+
+
+
+
+
     <script src="{{ asset('superadmin/assets/js/off-canvas.js')}}"></script>
     <script src="{{ asset('superadmin/assets/js/misc.js')}}"></script>
     <script src="{{ asset('superadmin/assets/js/settings.js')}}"></script>

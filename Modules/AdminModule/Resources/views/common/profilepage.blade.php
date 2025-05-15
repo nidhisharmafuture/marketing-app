@@ -148,7 +148,7 @@
   const userRole = {{ auth()->user()->role }}; 
 
      function clearPasswordFields() {
-        document.getElementById('currentpassword').value = "";
+        // document.getElementById('currentpassword').value = "";
         document.getElementById('newpassword').value = "";
         document.getElementById('confirmpassword').value = "";
         document.getElementById('currentpasswordError').innerText = "";
@@ -217,7 +217,7 @@
     const baseRoute = userRole === 2 ? 'designer' : 'admin';
 
     // Send the request to the server
-    fetch(`/${baseRoute}/update-profile`, {
+    fetch(`/${baseRoute}/change-password`, {
   
         method: 'POST',
         headers: {

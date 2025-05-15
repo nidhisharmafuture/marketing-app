@@ -61,19 +61,15 @@
                 </ul>
               </div>
             </li> --}}
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                <span class="menu-title">Users</span>
-                <i class="mdi mdi-contacts menu-icon"></i>
-              </a>
-              <div class="collapse" id="icons">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+
+@if($role == 1)
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.designer.list') }}">
+        <span class="menu-title">Designer</span>
+        <i class="mdi mdi-contacts menu-icon"></i>
+    </a>
+</li>
+@endif
 
 
             {{-- <li class="nav-item">
@@ -120,32 +116,48 @@
 
 
 
-            {{-- <li class="nav-item">
+            @if($role == 1)
+            <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title">User Pages</span>
-                <i class="menu-arrow"></i>
+                <span class="menu-title">Media</span>
+                {{-- <i class="menu-arrow"></i> --}}
                 <i class="mdi mdi-lock menu-icon"></i>
               </a>
-              <div class="collapse" id="auth">
+              {{-- <div class="collapse" id="auth">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/blank-page.html"> Blank Page </a>
+                    <a class="nav-link" href="pages/samples/blank-page.html">Images</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                    <a class="nav-link" href="pages/samples/login.html">Videos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/register.html"> Register </a>
+                    <a class="nav-link" href="pages/samples/register.html">PDFs</a>
                   </li>
+                  
+                </ul>
+              </div> --}}
+            </li>
+
+               @endif
+
+          @if($role == 1)
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                <span class="menu-title">Notification</span>
+                <i class="mdi mdi-table-large menu-icon"></i>
+              </a>
+              {{-- <div class="collapse" id="icons">
+                <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/error-404.html"> 404 </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="pages/samples/error-500.html"> 500 </a>
+                    <a class="nav-link" href="pages/icons/font-awesome.html">Font Awesome</a>
                   </li>
                 </ul>
-              </div>
-            </li> --}}
+              </div> --}}
+            </li>
+          @endif
+
+
             {{-- <li class="nav-item">
               <a class="nav-link" href="docs/documentation.html" target="_blank">
                 <span class="menu-title">Documentation</span>

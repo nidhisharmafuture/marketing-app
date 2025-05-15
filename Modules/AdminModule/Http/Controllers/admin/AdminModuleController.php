@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AdminModule\Http\Controllers;
+namespace Modules\AdminModule\Http\Controllers\admin;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Faker\Core\Uuid;
 
 
 
@@ -20,7 +22,7 @@ class AdminModuleController extends Controller
      */
     public function adminLoginPage()
     {
-        return view('adminmodule::admin.adminlogin');
+        return view('adminmodule::admin.login.adminlogin');
     }
 
     public function loginProcess(Request $request)
@@ -96,46 +98,44 @@ class AdminModuleController extends Controller
         return response()->json(['success' => true]);
     }
 
-public function changePassword(Request $request)
-{
-    // Define the validation rules
-$user = auth()->user();
+    public function changePassword(Request $request)
+    {
+        // Define the validation rules
+        $user = auth()->user();
 
+        $validator = Validator::make($request->all(), [
+            'currentpassword' => 'required', // The current password is required
+            'newpassword' => 'required|min:6', // New password is required and must be at least 8 characters
+            'confirmpassword' => 'required|same:newpassword', // Confirm password must match the new password
+        ]);
 
+        // Check if validation fails
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors() // Return validation errors
+            ]);
+        }
 
+        // Check if the current password is correct
+        if (!Hash::check($request->currentpassword, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Current password is incorrect.'
+            ]);
+        }
 
-    $validator = Validator::make($request->all(), [
-        'currentpassword' => 'required', // The current password is required
-        'newpassword' => 'required|min:6', // New password is required and must be at least 8 characters
-        'confirmpassword' => 'required|same:newpassword', // Confirm password must match the new password
-    ]);
+        // Proceed to update the password
 
-    // Check if validation fails
-    if ($validator->fails()) {
+        $user->password = Hash::make($request->newpassword);
+        $user->save();
+
         return response()->json([
-            'success' => false,
-            'errors' => $validator->errors() // Return validation errors
+            'success' => true,
+            'message' => 'Password updated successfully.'
         ]);
     }
 
-    // Check if the current password is correct
-    if (!Hash::check($request->currentpassword, $user->password)) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Current password is incorrect.'
-        ]);
-    }
+   
 
-    // Proceed to update the password
-    
-    $user->password = Hash::make($request->newpassword);
-    $user->save();
-
-    return response()->json([
-        'success' => true,
-        'message' => 'Password updated successfully.'
-    ]);
-}
-
-    
 }

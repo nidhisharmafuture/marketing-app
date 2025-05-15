@@ -20,7 +20,7 @@ class AdminModuleSeeder extends Seeder
         User::create([
             'name' => 'Admin',
              'uid' => Str::uuid(),
-            'role' => 1,
+             'role' => 1,
             'email'=>'super@gmail.com',
             'phone' => '1234567890',
             'password' => Hash::make('12345')
