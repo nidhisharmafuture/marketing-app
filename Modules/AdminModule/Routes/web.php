@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\AdminModule\Http\Controllers\admin\AdminModuleController;
 use Modules\AdminModule\Http\Controllers\admin\DesignerFileController;
 use Modules\AdminModule\Http\Controllers\admin\CategoryController;
+use Modules\AdminModule\Http\Controllers\admin\MediaController;
 
 
 
@@ -62,6 +63,17 @@ Route::prefix('admin')->group(function () {
     Route::put('/category/update/{id}', [CategoryController::class, 'categoryUpdate'])->name('admin.category.update');
     Route::delete('/category/delete/{id}', [CategoryController::class, 'categoryDestroy'])->name('admin.category.destroy');
   Route::get('/category/show/{id}', [CategoryController::class, 'categoryShow'])->name('admin.category.show');
+  
+
+    // Media designer
+
+        Route::get('/media-listing', [MediaController::class, 'mediaList'])->name('admin.media.list');
+ Route::get('/media/create', [MediaController::class, 'mediaCreate'])->name('admin.media.create');
+    Route::post('/media/store', [MediaController::class, 'mediaStore'])->name('admin.media.store');
+    Route::get('/media/edit/{id}', [MediaController::class, 'mediaEdit'])->name('admin.media.edit');
+    Route::put('/media/update/{id}', [MediaController::class, 'mediaUpdate'])->name('admin.media.update');
+    Route::delete('/media/delete/{id}', [MediaController::class, 'mediaDestroy'])->name('admin.media.destroy');
+  Route::get('/media/show/{id}', [MediaController::class, 'mediaShow'])->name('admin.media.show');
   
   });
 });
