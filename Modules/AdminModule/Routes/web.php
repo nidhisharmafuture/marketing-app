@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Modules\AdminModule\Http\Controllers\admin\AdminModuleController;
 use Modules\AdminModule\Http\Controllers\admin\DesignerFileController;
+use Modules\AdminModule\Http\Controllers\admin\CategoryController;
+
+
 
 use Modules\AdminModule\Http\Controllers\designer\DesignerModuleController;
 use Modules\AdminModule\Http\Controllers\AuthModuleController;
@@ -50,6 +53,15 @@ Route::prefix('admin')->group(function () {
     Route::delete('/designer/delete/{id}', [DesignerFileController::class, 'designerDestroy'])->name('admin.designer.destroy');
   Route::get('/designer/show/{id}', [DesignerFileController::class, 'designerShow'])->name('admin.designer.show');
 
+  // category designer
+
+        Route::get('/category-listing', [CategoryController::class, 'categoryList'])->name('admin.category.list');
+ Route::get('/category/create', [CategoryController::class, 'categoryCreate'])->name('admin.category.create');
+    Route::post('/category/store', [CategoryController::class, 'categoryStore'])->name('admin.category.store');
+    Route::get('/category/edit/{id}', [CategoryController::class, 'categoryEdit'])->name('admin.category.edit');
+    Route::put('/category/update/{id}', [CategoryController::class, 'categoryUpdate'])->name('admin.category.update');
+    Route::delete('/category/delete/{id}', [CategoryController::class, 'categoryDestroy'])->name('admin.category.destroy');
+  Route::get('/category/show/{id}', [CategoryController::class, 'categoryShow'])->name('admin.category.show');
   
   });
 });
