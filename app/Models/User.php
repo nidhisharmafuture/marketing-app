@@ -26,6 +26,7 @@ class User extends Authenticatable
         'role',
         'team',
         'rera_no',
+        'email_sent'
     ];
 
     /**

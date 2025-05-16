@@ -2,6 +2,10 @@
 
 namespace Modules\AdminModule\Http\Controllers\admin;
 
+use App\Models\Category;
+use App\Models\Media;
+use App\Models\Team;
+use App\Models\Township;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -22,7 +26,8 @@ class AdminModuleController extends Controller
      */
     public function adminLoginPage()
     {
-        return view('adminmodule::admin.login.adminlogin');
+       
+     return view('adminmodule::admin.login.adminlogin');
     }
 
     public function loginProcess(Request $request)
@@ -46,7 +51,29 @@ class AdminModuleController extends Controller
             $user = Auth::user();
 
             if ($user->role == 1) {
-                return redirect()->route('admin.dashboard')->with('message', 'Login Successfully');
+
+
+
+    return view('adminmodule::admin.dashboard.dashboard', [
+       'totalDesigners' => User::where('role', 2)->count(),
+        'recentDesigners' => User::where('role', 2)->latest()->take(5)->get(),
+        'totalMedia' => Media::count(),
+        'recentMedia' => Media::latest()->take(5)->get(),
+        'totalTeams' => Team::count(),
+        'recentTeams' => Team::latest()->take(5)->get(),
+        'totalTownships' => Township::count(),
+        'recentTownships' => Township::latest()->take(5)->get(),
+        'totalAssociates' => User::where('role', 3)->count(),
+        'recentAssociates' => User::where('role', 3)->latest()->take(5)->get(),
+        'totalCategories' => Category::count(),
+        'recentCategories' => Category::latest()->take(5)->get(),
+    ]);
+
+
+
+
+
+                // return redirect()->route('admin.dashboard')->with('message', 'Login Successfully');
             } else {
                 Auth::logout(); // Prevent access if not authorized
                 return back()->with('error', 'You do not have permission to access this dashboard.');

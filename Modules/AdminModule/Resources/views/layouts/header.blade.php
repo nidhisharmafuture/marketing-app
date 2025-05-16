@@ -47,7 +47,7 @@
                 @endphp
 
                 @if($image)
-                <img src="{{ asset('admin/' . $image) }}" id="output" alt="Admin Image" />
+                <img src="{{ asset('admin/' . $image) }}" alt="Admin Image" />
                 @else
 
                   <img src="{{ asset('superadmin/assets/images/faces/face1.jpg')}}" alt="image">

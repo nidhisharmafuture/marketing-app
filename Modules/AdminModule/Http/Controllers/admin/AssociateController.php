@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Faker\Core\Uuid;
-
+use App\Mail\SendAssociateCredentials;
+use Illuminate\Support\Facades\Mail;
 
 
 class AssociateController extends Controller
@@ -52,6 +53,16 @@ class AssociateController extends Controller
         $associate = User::findOrFail($id);
         $associate->status = $associate->status == 1 ? 0 : 1;
         $associate->save();
+        $password = $associate->password;
+
+        if($associate->status == 0 && $associate->email_sent == 0){
+            Mail::to($associate->email)->send(new SendAssociateCredentials($associate, $password));
+                $associate->email_sent = 1;
+                        $associate->save();
+
+
+        }
+
 
         return response()->json(['success' => true, 'status' => $associate->status]);
     }

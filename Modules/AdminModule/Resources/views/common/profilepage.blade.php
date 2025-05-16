@@ -29,9 +29,9 @@
                     <div class="custom_uplaod_photo">
                         <div class="upload_photo">
                             @if ($admin->image)
-                                <img src="{{ asset('admin/' . $admin->image) }}" id="output" alt="Admin Image" />
+                                <img src="{{ asset('admin/' . $admin->image) }}" id="outputImage" alt="Admin Image" />
                             @else
-                                <img src="{{ url('public/superadmin/img/profile_img.png') }}" id="output" />
+                                <img src="{{ url('public/superadmin/img/profile_img.png') }}" id="outputImage" />
                             @endif
                         </div>
                         <div class="photo_action">
@@ -117,13 +117,13 @@
     
     // Profile Image Preview
     function loadFile(event) {
-        const output = document.getElementById('output');
+        const output = document.getElementById('outputImage');
         output.src = URL.createObjectURL(event.target.files[0]);
         document.getElementById('imageref').value = "1";
     }
 
     function removeImage() {
-        const output = document.getElementById('output');
+        const output = document.getElementById('outputImage');
         output.src = "{{ url('public/superadmin/img/profile_img.png') }}";
         document.getElementById('fileInput').value = '';
         document.getElementById('imageref').value = "0";

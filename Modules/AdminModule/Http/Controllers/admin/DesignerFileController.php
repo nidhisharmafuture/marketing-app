@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Faker\Core\Uuid;
-
+use App\Mail\SendDesignerCredentials;
+use Illuminate\Support\Facades\Mail;
 
 
 class DesignerFileController extends Controller
@@ -41,7 +42,7 @@ public function designerStore(Request $request)
         'password' => 'required|string|min:6|confirmed',
     ]);
 
-    User::create([
+   $userData =  User::create([
         'uid' => Str::uuid(), // 👈 This now works
         'name' => $request->name,
         'email' => $request->email,
@@ -49,7 +50,20 @@ public function designerStore(Request $request)
         'password' => Hash::make($request->password),
         'role' => 2,
         'status' => 1,
+        'email_sent' => 0,
     ]);
+
+    $password = bcrypt($userData->password);
+
+     if($userData->email_sent == 0){
+            Mail::to($userData->email)->send(new SendDesignerCredentials($userData, $password));
+        $userData->email_sent = 1;
+        $userData->save();
+
+        
+        }
+
+
 
     return redirect()->route('admin.designer.list')->with('success', 'Designer created successfully.');
 }

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('rera_no')->nullable();
             $table->string('team')->nullable();
+           $table->tinyInteger('email_sent')->nullable();
 
 
 
