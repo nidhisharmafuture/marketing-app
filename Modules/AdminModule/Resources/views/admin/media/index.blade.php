@@ -16,6 +16,8 @@
                 <tr>
                     <th>#</th>
                     <th>Title</th>
+                                                            <th>Status</th>
+
                     {{-- <th>Admin ID</th> --}}
                     <th>Action</th>
                 </tr>
@@ -25,6 +27,12 @@
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $m->title }}</td>
+                         <td>
+                            <button class="btn btn-sm {{ $m->status ? 'btn-success' : 'btn-secondary' }}" 
+                                onclick="toggleStatus({{ $m->id }}, this)">
+                                {{ $m->status ? 'Active' : 'Inactive' }}
+                            </button>
+                        </td>
                         {{-- <td>{{ $category->admin }}</td> --}}
                         <td>
                             <a href="{{ route('admin.media.show', $m->id) }}" class="btn btn-info btn-sm"><i class="mdi mdi-eye"></i></a>
@@ -71,6 +79,26 @@
             @endforeach
         @endif
     });
+</script>
+
+<script>
+function toggleStatus(id, button) {
+    $.ajax({
+        url: '/admin/media/publish-status/' + id,
+        method: 'GET',
+        success: function(response) {
+            toastr.success('Status updated');
+            if (response.status) {
+                $(button).removeClass('btn-secondary').addClass('btn-success').text('Active');
+            } else {
+                $(button).removeClass('btn-success').addClass('btn-secondary').text('Inactive');
+            }
+        },
+        error: function() {
+            toastr.error('Error updating status');
+        }
+    });
+}
 </script>
 <script>
     $(document).ready(function () {

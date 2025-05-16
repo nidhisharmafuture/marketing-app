@@ -7,6 +7,7 @@ use Modules\AdminModule\Http\Controllers\admin\CategoryController;
 use Modules\AdminModule\Http\Controllers\admin\MediaController;
 use Modules\AdminModule\Http\Controllers\admin\TownshipController;
 use Modules\AdminModule\Http\Controllers\admin\TeamController;
+use Modules\AdminModule\Http\Controllers\admin\AssociateController;
 
 
 
@@ -56,6 +57,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/designer/update/{id}', [DesignerFileController::class, 'designerUpdate'])->name('admin.designer.update');
     Route::delete('/designer/delete/{id}', [DesignerFileController::class, 'designerDestroy'])->name('admin.designer.destroy');
   Route::get('/designer/show/{id}', [DesignerFileController::class, 'designerShow'])->name('admin.designer.show');
+Route::get('/designer/status-update/{id}', [DesignerFileController::class, 'designerStatusUpdate'])->name('admin.designer.status.update');
 
   // category designer
 
@@ -66,7 +68,8 @@ Route::prefix('admin')->group(function () {
     Route::put('/category/update/{id}', [CategoryController::class, 'categoryUpdate'])->name('admin.category.update');
     Route::delete('/category/delete/{id}', [CategoryController::class, 'categoryDestroy'])->name('admin.category.destroy');
   Route::get('/category/show/{id}', [CategoryController::class, 'categoryShow'])->name('admin.category.show');
-  
+  Route::get('/category/publish-status/{id}', [CategoryController::class, 'categoryPublishStatus'])->name('admin.category.update.status');
+
 
     // Media designer
 
@@ -77,7 +80,8 @@ Route::prefix('admin')->group(function () {
     Route::put('/media/update/{id}', [MediaController::class, 'mediaUpdate'])->name('admin.media.update');
     Route::delete('/media/delete/{id}', [MediaController::class, 'mediaDestroy'])->name('admin.media.destroy');
   Route::get('/media/show/{id}', [MediaController::class, 'mediaShow'])->name('admin.media.show');
-  
+    Route::get('/media/publish-status/{id}', [MediaController::class, 'mediaPublishStatus'])->name('admin.media.update.status');
+
 
 // township designer
 
@@ -104,6 +108,15 @@ Route::get('/township/ajax-table', [TownshipController::class, 'ajaxTownshipTabl
   Route::get('/team/show/{id}', [TeamController::class, 'teamShow'])->name('admin.team.show');
 
   Route::get('/team/publish-status/{id}', [TeamController::class, 'teamPublishStatus'])->name('admin.team.update.status');
+
+
+
+  // Associates
+Route::get('/associate-listing', [AssociateController::class, 'associateList'])->name('admin.associate.list');
+Route::get('/associate/edit/{id}', [AssociateController::class, 'associateEdit'])->name('admin.associate.edit');
+Route::put('/associate/update/{id}', [AssociateController::class, 'associateUpdate'])->name('admin.associate.update');
+Route::get('/associate/status-update/{id}', [AssociateController::class, 'associateStatusUpdate'])->name('admin.associate.status.update');
+Route::get('/associate/show/{id}', [AssociateController::class, 'associateShow'])->name('admin.associate.show');
 
 
   });

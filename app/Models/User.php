@@ -24,6 +24,8 @@ class User extends Authenticatable
         'phone',
         'uid',
         'role',
+        'team',
+        'rera_no',
     ];
 
     /**

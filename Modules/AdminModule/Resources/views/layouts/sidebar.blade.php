@@ -71,6 +71,17 @@
 
      @if($role == 1)
      <li class="nav-item">
+       <a class="nav-link" href="{{ route('admin.associate.list') }}">
+         <span class="menu-title">Associates</span>
+         <i class="mdi mdi-contacts menu-icon"></i>
+       </a>
+     </li>
+     @endif
+
+     
+
+     @if($role == 1)
+     <li class="nav-item">
        <a class="nav-link" href="{{route('admin.category.list')}}">
          <span class="menu-title">Categories</span>
          <i class="mdi mdi-format-list-bulleted menu-icon"></i>

@@ -45,6 +45,7 @@ public function categoryStore(Request $request)
 
     Category::create([
         'title' => $request->title,
+        'status' => 1,
         'admin' => $auth,
     
     ]);
@@ -88,5 +89,17 @@ public function categoryShow($id)
     $category = Category::findOrFail($id);
     return view('adminmodule::admin.category.show', compact('category'));
 }
+
+ public function categoryPublishStatus($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->status = !$category->status;
+        $category->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $category->status
+        ]);
+    }
 
 }

@@ -45,6 +45,7 @@ public function mediaStore(Request $request)
 
     Media::create([
         'title' => $request->title,
+        'status' => 1,
         'admin' => $auth,
     
     ]);
@@ -88,5 +89,17 @@ public function mediaShow($id)
     $media = Media::findOrFail($id);
     return view('adminmodule::admin.media.show', compact('media'));
 }
+
+ public function mediaPublishStatus($id)
+    {
+        $media = Media::findOrFail($id);
+        $media->status = !$media->status;
+        $media->save();
+
+        return response()->json([
+            'success' => true,
+            'status' => $media->status
+        ]);
+    }
 
 }

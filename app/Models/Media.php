@@ -11,6 +11,7 @@ class Media extends Model
      protected $fillable = [
         'title',
         'admin',
+        'status',
        
     ];
 }

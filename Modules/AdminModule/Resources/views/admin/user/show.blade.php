@@ -19,6 +19,8 @@
                 Associate
             @endif
         </p>
+                <p><strong>Status:</strong> {{ $designer->status ? 'Active' : 'Inactive' }}</p>
+
         <a href="{{ route('admin.designer.list') }}" class="btn btn-primary">Back to List</a>
     </div>
 </div>

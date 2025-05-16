@@ -15,6 +15,8 @@ return new class extends Migration
            $table->id();
               $table->string('title')->nullable();
             $table->bigInteger('admin')->nullable();
+                $table->tinyInteger('status')->nullable();
+
             $table->timestamps();
         });
     }

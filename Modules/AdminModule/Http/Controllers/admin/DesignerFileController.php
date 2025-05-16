@@ -48,6 +48,7 @@ public function designerStore(Request $request)
         'phone' => $request->contact, // or use 'contact' if that's your DB column
         'password' => Hash::make($request->password),
         'role' => 2,
+        'status' => 1,
     ]);
 
     return redirect()->route('admin.designer.list')->with('success', 'Designer created successfully.');
@@ -93,5 +94,14 @@ public function designerShow($id)
     $designer = User::where('role', 2)->findOrFail($id);
     return view('adminmodule::admin.user.show', compact('designer'));
 }
+
+  public function designerStatusUpdate($id)
+    {
+        $associate = User::findOrFail($id);
+        $associate->status = $associate->status == 1 ? 0 : 1;
+        $associate->save();
+
+        return response()->json(['success' => true, 'status' => $associate->status]);
+    }
 
 }
