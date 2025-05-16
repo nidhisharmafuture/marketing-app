@@ -5,6 +5,9 @@ use Modules\AdminModule\Http\Controllers\admin\AdminModuleController;
 use Modules\AdminModule\Http\Controllers\admin\DesignerFileController;
 use Modules\AdminModule\Http\Controllers\admin\CategoryController;
 use Modules\AdminModule\Http\Controllers\admin\MediaController;
+use Modules\AdminModule\Http\Controllers\admin\TownshipController;
+use Modules\AdminModule\Http\Controllers\admin\TeamController;
+
 
 
 
@@ -75,6 +78,34 @@ Route::prefix('admin')->group(function () {
     Route::delete('/media/delete/{id}', [MediaController::class, 'mediaDestroy'])->name('admin.media.destroy');
   Route::get('/media/show/{id}', [MediaController::class, 'mediaShow'])->name('admin.media.show');
   
+
+// township designer
+
+        Route::get('/township-listing', [TownshipController::class, 'townshipList'])->name('admin.township.list');
+ Route::get('/township/create', [TownshipController::class, 'townshipCreate'])->name('admin.township.create');
+    Route::post('/township/store', [TownshipController::class, 'townshipStore'])->name('admin.township.store');
+    Route::get('/township/edit/{id}', [TownshipController::class, 'townshipEdit'])->name('admin.township.edit');
+    Route::put('/township/update/{id}', [TownshipController::class, 'townshipUpdate'])->name('admin.township.update');
+    Route::delete('/township/delete/{id}', [TownshipController::class, 'townshipDestroy'])->name('admin.township.destroy');
+  Route::get('/township/show/{id}', [TownshipController::class, 'townshipShow'])->name('admin.township.show');
+
+  Route::get('/township/publish-status/{id}', [TownshipController::class, 'townshipPublishStatus'])->name('admin.township.update.status');
+Route::get('/township/ajax-table', [TownshipController::class, 'ajaxTownshipTable'])->name('admin.township.table.ajax');
+
+
+// team 
+
+        Route::get('/team-listing', [TeamController::class, 'teamList'])->name('admin.team.list');
+ Route::get('/team/create', [TeamController::class, 'teamCreate'])->name('admin.team.create');
+    Route::post('/team/store', [TeamController::class, 'teamStore'])->name('admin.team.store');
+    Route::get('/team/edit/{id}', [TeamController::class, 'teamEdit'])->name('admin.team.edit');
+    Route::put('/team/update/{id}', [TeamController::class, 'teamUpdate'])->name('admin.team.update');
+    Route::delete('/team/delete/{id}', [TeamController::class, 'teamDestroy'])->name('admin.team.destroy');
+  Route::get('/team/show/{id}', [TeamController::class, 'teamShow'])->name('admin.team.show');
+
+  Route::get('/team/publish-status/{id}', [TeamController::class, 'teamPublishStatus'])->name('admin.team.update.status');
+
+
   });
 });
 

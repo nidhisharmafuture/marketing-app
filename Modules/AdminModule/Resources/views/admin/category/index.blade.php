@@ -47,6 +47,33 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
+
+<script>
+    $(document).ready(function () {
+        @if(session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if(session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+
+        @if(session('warning'))
+            toastr.warning("{{ session('warning') }}");
+        @endif
+
+        @if(session('info'))
+            toastr.info("{{ session('info') }}");
+        @endif
+
+        @if($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+    });
+</script>
+
 <script>
     $(document).ready(function () {
         $('#category-table').DataTable({

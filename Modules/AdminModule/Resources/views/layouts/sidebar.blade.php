@@ -63,7 +63,7 @@
      @if($role == 1)
      <li class="nav-item">
        <a class="nav-link" href="{{ route('admin.designer.list') }}">
-         <span class="menu-title">Designer</span>
+         <span class="menu-title">Designers</span>
          <i class="mdi mdi-contacts menu-icon"></i>
        </a>
      </li>
@@ -72,7 +72,7 @@
      @if($role == 1)
      <li class="nav-item">
        <a class="nav-link" href="{{route('admin.category.list')}}">
-         <span class="menu-title">Category</span>
+         <span class="menu-title">Categories</span>
          <i class="mdi mdi-format-list-bulleted menu-icon"></i>
        </a>
 
@@ -119,8 +119,18 @@
 
      @if($role == 1)
      <li class="nav-item">
-       <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-         <span class="menu-title">Notification</span>
+       <a class="nav-link" href="{{route('admin.township.list')}}">
+         <span class="menu-title">Townships</span>
+         <i class="mdi mdi-table-large menu-icon"></i>
+       </a>
+
+     </li>
+     @endif
+
+      @if($role == 1)
+     <li class="nav-item">
+       <a class="nav-link" href="{{route('admin.team.list')}}">
+         <span class="menu-title">Team</span>
          <i class="mdi mdi-table-large menu-icon"></i>
        </a>
 
