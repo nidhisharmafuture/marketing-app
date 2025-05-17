@@ -2,6 +2,7 @@
 
 namespace Modules\AdminModule\Http\Controllers\designer;
 
+use App\Models\Task;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -77,7 +78,30 @@ class DesignerModuleController extends Controller
     public function dashboardPage()
     {
         if (Auth::check() && auth()->user()->role == 2) {
-            return view('adminmodule::common.dashboard');
+
+
+   $designerId = auth()->id();
+
+    $totalTasks = Task::where('designer_id', $designerId)->count();
+    $submittedTasks = Task::where('designer_id', $designerId)->where('status', 1)->count();
+    $publishTasks = Task::where('designer_id', $designerId)->where('publish_status', 1)->count();
+        $unpublishTasks = Task::where('designer_id', $designerId)->where('publish_status', 0)->count();
+
+
+    $recentTasks = Task::where('designer_id', $designerId)->latest()->take(5)->get();
+
+    return view('adminmodule::common.dashboard', compact(
+        'totalTasks', 'publishTasks', 'submittedTasks',  'recentTasks', 'unpublishTasks'
+    ));
+
+
+
+
+
+
+
+
+
         } else {
             return redirect()->route('designer.loginPage')->with('error', 'Unauthorized access.');
         }

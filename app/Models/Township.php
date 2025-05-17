@@ -14,6 +14,8 @@ class Township extends Model
         'location',
         'rera_no',
         'status',
+        'district',
+        'project_type'
        
     ];
 }

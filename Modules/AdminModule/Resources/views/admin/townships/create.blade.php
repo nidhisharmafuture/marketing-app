@@ -11,9 +11,18 @@
             <input type="text" name="name" class="form-control" required>
         </div>
 
+         <div class="form-group">
+            <label>District</label>
+            <input type="text" name="district" class="form-control" required>
+        </div>
+
         <div class="form-group">
             <label>Location</label>
             <input type="text" name="location" class="form-control" required>
+        </div>
+         <div class="form-group">
+            <label>Project Type</label>
+            <input type="text" name="project_type" class="form-control" required>
         </div>
 
         <div class="form-group">

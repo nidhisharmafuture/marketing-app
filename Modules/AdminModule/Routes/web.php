@@ -13,6 +13,8 @@ use Modules\AdminModule\Http\Controllers\admin\AssociateController;
 
 
 use Modules\AdminModule\Http\Controllers\designer\DesignerModuleController;
+use Modules\AdminModule\Http\Controllers\designer\TaskController;
+
 use Modules\AdminModule\Http\Controllers\AuthModuleController;
 
 /*
@@ -135,8 +137,17 @@ Route::prefix('designer')->group(function () {
     Route::post('change-password', [DesignerModuleController::class, 'changePassword'])->name('designer.profile.changepassword');
   
 
-  
-  
+    // task
+
+    Route::get('tasks', [TaskController::class, 'taskList'])->name('designer.tasks.index');
+    Route::get('tasks/create', [TaskController::class, 'taskCreate'])->name('designer.tasks.create');
+    Route::post('tasks/store', [TaskController::class, 'taskStore'])->name('designer.tasks.store');
+    Route::get('tasks/edit/{task}', [TaskController::class, 'taskEdit'])->name('designer.tasks.edit');
+    Route::put('tasks/{task}', [TaskController::class, 'taskUpdate'])->name('designer.tasks.update');
+    Route::delete('tasks/{task}', [TaskController::class, 'destroy'])->name('designer.tasks.destroy');
+    Route::post('tasks/{task}/status', [TaskController::class, 'changeStatus'])->name('designer.tasks.status');
+  Route::get('tasks/{id}/show', [TaskController::class, 'showTask'])->name('designer.tasks.show');
+
   
   });
 });

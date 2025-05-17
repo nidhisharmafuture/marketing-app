@@ -22,7 +22,7 @@ class TownshipController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-  
+
     public function townshipList()
     {
         $townships = Township::latest()->get();
@@ -38,7 +38,7 @@ class TownshipController extends Controller
     // Store new township
     public function townshipStore(Request $request)
     {
-    $auth = AUTH::user()->id;
+        $auth = AUTH::user()->id;
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -49,6 +49,8 @@ class TownshipController extends Controller
         Township::create([
             'name' => $request->name,
             'location' => $request->location,
+            'district' => $request->district,
+            'project_type' => $request->project_type,
             'rera_no' => $request->rera_no,
             'admin_id' => $auth,
             'status' => true,
@@ -71,6 +73,10 @@ class TownshipController extends Controller
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'rera_no' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'project_type' => 'nullable|string|max:255',
+
+
         ]);
 
         $township = Township::findOrFail($id);
@@ -78,6 +84,9 @@ class TownshipController extends Controller
             'name' => $request->name,
             'location' => $request->location,
             'rera_no' => $request->rera_no,
+            'project_type' => $request->project_type,
+            'district' => $request->district,
+
         ]);
 
         return redirect()->route('admin.township.list')->with('success', 'Township updated successfully.');
@@ -100,23 +109,22 @@ class TownshipController extends Controller
     }
 
     // Toggle publish status
- public function townshipPublishStatus($id)
-{
-    $township = Township::findOrFail($id);
-    $township->status = !$township->status;
-    $township->save();
+    public function townshipPublishStatus($id)
+    {
+        $township = Township::findOrFail($id);
+        $township->status = !$township->status;
+        $township->save();
 
-    return response()->json([
-        'success' => true,
-        'status' => $township->status
-    ]);
-}
+        return response()->json([
+            'success' => true,
+            'status' => $township->status
+        ]);
+    }
 
-public function ajaxTownshipTable()
-{
-    $townships = Township::latest()->get();
+    public function ajaxTownshipTable()
+    {
+        $townships = Township::latest()->get();
 
-    return view('adminmodule::admin.townships.list', compact('townships'));
-}
-
+        return view('adminmodule::admin.townships.list', compact('townships'));
+    }
 }

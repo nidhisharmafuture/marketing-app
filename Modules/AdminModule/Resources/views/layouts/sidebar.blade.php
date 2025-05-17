@@ -87,5 +87,18 @@
       </li>
     @endif
 
+   @if($role == 2)
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('designer.tasks.index') }}">
+      <span class="menu-title">Task List</span>
+      <i class="mdi mdi-clipboard-text menu-icon"></i>
+    </a>
+  </li>
+@endif
+
+
+
+
+
   </ul>
 </nav>

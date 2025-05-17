@@ -7,9 +7,13 @@
     <div class="card">
         <div class="card-body">
             <h4>{{ $township->name }}</h4>
+            <p><strong>District:</strong> {{ $township->district }}</p>
+
             <p><strong>Location:</strong> {{ $township->location }}</p>
+            <p><strong>Project Type:</strong> {{ $township->project_type }}</p>
+
             <p><strong>RERA No:</strong> {{ $township->rera_no }}</p>
-            <p><strong>Status:</strong> 
+            <p><strong>Status:</strong>
                 <span class="badge {{ $township->status ? 'bg-success' : 'bg-secondary' }}">
                     {{ $township->status ? 'Active' : 'Inactive' }}
                 </span>
@@ -19,4 +23,3 @@
     </div>
 </div>
 @endsection
-

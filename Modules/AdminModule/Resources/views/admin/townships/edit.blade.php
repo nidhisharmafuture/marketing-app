@@ -13,9 +13,19 @@
             <input type="text" name="name" value="{{ $township->name }}" class="form-control" required>
         </div>
 
+         <div class="form-group">
+            <label>District</label>
+            <input type="text" name="district" value="{{ $township->district }}" class="form-control" required>
+        </div>
+
         <div class="form-group">
             <label>Location</label>
             <input type="text" name="location" value="{{ $township->location }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Project Type</label>
+            <input type="text" name="project_type" value="{{ $township->project_type }}" class="form-control" required>
         </div>
 
         <div class="form-group">

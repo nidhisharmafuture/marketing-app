@@ -15,8 +15,12 @@ return new class extends Migration
         $table->id();
         $table->bigInteger('admin_id');
         $table->string('name');
-        $table->string('location');
+        $table->string('location')->nullable();
         $table->string('rera_no')->nullable();
+        $table->string('district')->nullable();
+
+
+        $table->string('project_type')->nullable();
         $table->tinyInteger('status')->nullable(); 
         $table->timestamps();
         });

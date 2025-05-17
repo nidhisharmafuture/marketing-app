@@ -29,7 +29,8 @@
 <link href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
   
-  
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css">
+
   </head>
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -49,6 +50,7 @@
 
         @yield('content')
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
           </div>
           <!-- content-wrapper ends -->
