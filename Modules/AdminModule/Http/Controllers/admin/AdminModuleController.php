@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Faker\Core\Uuid;
-
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class AdminModuleController extends Controller
@@ -29,6 +30,7 @@ class AdminModuleController extends Controller
        
      return view('adminmodule::admin.login.adminlogin');
     }
+    
 
     public function loginProcess(Request $request)
     {
@@ -47,26 +49,52 @@ class AdminModuleController extends Controller
 
         $credentials = $request->only('email', 'password');
 
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
+
+
+    // Group user creation by month
+    $monthlyStats = User::whereIn('role', [0, 2])
+    ->whereStatus(1)
+    ->select(
+        DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
+        DB::raw("SUM(CASE WHEN role = 0 THEN 1 ELSE 0 END) as associates"),
+        DB::raw("SUM(CASE WHEN role = 2 THEN 1 ELSE 0 END) as designers")
+    )
+    ->groupBy('month')
+    ->orderBy('month', 'asc')
+    ->get();
+
+        // Separate arrays for chart
+        $months = $monthlyStats->pluck('month')->toArray();
+        $associateCounts = $monthlyStats->pluck('associates')->toArray();
+        $designerCounts = $monthlyStats->pluck('designers')->toArray();
+
+
+
 
             if ($user->role == 1) {
 
 
 
     return view('adminmodule::admin.dashboard.dashboard', [
-       'totalDesigners' => User::where('role', 2)->count(),
-        'recentDesigners' => User::where('role', 2)->latest()->take(5)->get(),
-        'totalMedia' => Media::count(),
-        'recentMedia' => Media::latest()->take(5)->get(),
-        'totalTeams' => Team::count(),
-        'recentTeams' => Team::latest()->take(5)->get(),
-        'totalTownships' => Township::count(),
-        'recentTownships' => Township::latest()->take(5)->get(),
-        'totalAssociates' => User::where('role', 3)->count(),
-        'recentAssociates' => User::where('role', 3)->latest()->take(5)->get(),
-        'totalCategories' => Category::count(),
-        'recentCategories' => Category::latest()->take(5)->get(),
+       'totalDesigners' => User::where('role', 2)->whereStatus(1)->count(),
+
+        'recentDesigners' => User::where('role', 2)->whereStatus(1)->latest()->take(5)->get(),
+        'totalMedia' => Media::whereStatus(1)->count(),
+        'recentMedia' => Media::whereStatus(1)->latest()->take(5)->get(),
+        'totalTeams' => Team::whereStatus(1)->count(),
+        'recentTeams' => Team::whereStatus(1)->latest()->take(5)->get(),
+        'totalTownships' => Township::whereStatus(1)->count(),
+        'recentTownships' => Township::whereStatus(1)->latest()->take(5)->get(),
+        'totalAssociates' => User::whereStatus(1)->where('role', 0)->count(),
+        'recentAssociates' => User::whereStatus(1)->where('role', 0)->latest()->take(5)->get(),
+        'totalCategories' => Category::whereStatus(1)->count(),
+        'recentCategories' => Category::whereStatus(1)->latest()->take(5)->get(),
+         'months' => $months,
+    'associateCounts' => $associateCounts,
+    'designerCounts' => $designerCounts,
     ]);
 
 
@@ -94,7 +122,47 @@ class AdminModuleController extends Controller
     {
         if (Auth::check() && auth()->user()->role == '1') {
 
-            return view('adminmodule::common.dashboard');
+  $monthlyStats = User::whereIn('role', [0, 2])
+    ->whereStatus(1)
+    ->select(
+        DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
+        DB::raw("SUM(CASE WHEN role = 0 THEN 1 ELSE 0 END) as associates"),
+        DB::raw("SUM(CASE WHEN role = 2 THEN 1 ELSE 0 END) as designers")
+    )
+    ->groupBy('month')
+    ->orderBy('month', 'asc')
+    ->get();
+
+        // Separate arrays for chart
+        $months = $monthlyStats->pluck('month')->toArray();
+        $associateCounts = $monthlyStats->pluck('associates')->toArray();
+        $designerCounts = $monthlyStats->pluck('designers')->toArray();
+
+
+
+
+
+
+
+
+            return view('adminmodule::admin.dashboard.dashboard', [
+       'totalDesigners' => User::where('role', 2)->whereStatus(1)->count(),
+
+        'recentDesigners' => User::where('role', 2)->whereStatus(1)->latest()->take(5)->get(),
+        'totalMedia' => Media::whereStatus(1)->count(),
+        'recentMedia' => Media::whereStatus(1)->latest()->take(5)->get(),
+        'totalTeams' => Team::whereStatus(1)->count(),
+        'recentTeams' => Team::whereStatus(1)->latest()->take(5)->get(),
+        'totalTownships' => Township::whereStatus(1)->count(),
+        'recentTownships' => Township::whereStatus(1)->latest()->take(5)->get(),
+        'totalAssociates' => User::whereStatus(1)->where('role', 0)->count(),
+        'recentAssociates' => User::whereStatus(1)->where('role', 0)->latest()->take(5)->get(),
+        'totalCategories' => Category::whereStatus(1)->count(),
+        'recentCategories' => Category::whereStatus(1)->latest()->take(5)->get(),
+         'months' => $months,
+    'associateCounts' => $associateCounts,
+    'designerCounts' => $designerCounts,
+    ]);
         }
     }
     public function profilePage()

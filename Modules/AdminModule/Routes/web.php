@@ -40,6 +40,7 @@ Route::get('/designer-login', [DesignerModuleController::class, 'designerLoginPa
 
 Route::prefix('admin')->group(function () {
   Route::post("login/process", [AdminModuleController::class, 'loginProcess'])->name('admin.login-process');
+
   Route::get("logout/process", [AdminModuleController::class, 'logout'])->name('admin.logout-process');
   Route::group(['middleware' => ['CheckAdminLogin']], function () {
 
