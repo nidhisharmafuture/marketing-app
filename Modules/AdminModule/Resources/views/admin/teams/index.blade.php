@@ -8,6 +8,8 @@
     <a href="{{ route('admin.team.create') }}" class="btn btn-primary mb-3">Add New Team</a>
 
     </div>
+
+    
     <div class="card-body">
 
     <div id="teamTableWrapper">

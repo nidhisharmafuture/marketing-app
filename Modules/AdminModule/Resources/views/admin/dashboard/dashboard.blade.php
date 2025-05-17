@@ -153,8 +153,8 @@
                 <tbody>
                   @foreach($recentAssociates as $associate)
                   <tr>
-                  <td> @if($associate->image == 1)
-                      <img src="{{ asset('admin/' . $image) }}" class="me-2" alt="image">
+                  <td> @if($associate->image)
+                      <img src="{{ asset('admin/' . $associate->image) }}" class="me-2" alt="image">
                         @else
                       <img src="{{ asset('superadmin/assets/images/user.png')}}" class="me-2" alt="image">
                       @endif
@@ -209,8 +209,8 @@
                 <tbody>
                   @foreach($recentDesigners as $associate)
                   <tr>
-                    <td> @if($associate->image == 1)
-                      <img src="{{ asset('admin/' . $image) }}" class="me-2" alt="image">
+                    <td> @if($associate->image)
+                      <img src="{{ asset('admin/' . $associate->image) }}" class="me-2" alt="image">
                         @else
                       <img src="{{ asset('superadmin/assets/images/user.png')}}" class="me-2" alt="image">
                       @endif

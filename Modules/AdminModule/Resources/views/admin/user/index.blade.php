@@ -1,14 +1,15 @@
 @extends('adminmodule::layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
         <h2 class="mb-0">Designer Listing</h2>
         <a href="{{route('admin.designer.create')}}" class="btn btn-primary">Add Designer</a>
     </div>
+    <div class="card-body">
 
-    <div class="table-responsive">
-        <table id="designer-table" class="table table-striped">
+    <div id="teamTableWrapper">
+        <table id="designer-table" class="table table-bordered">
     <thead>
         <tr>
             <th>Name</th>
@@ -53,6 +54,8 @@
 
     </div>
 </div>
+</div>
+
 @endsection
 
 @push('scripts')
